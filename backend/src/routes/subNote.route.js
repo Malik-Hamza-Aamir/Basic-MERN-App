@@ -6,13 +6,14 @@ const {
   handleDeleteSubNote,
   handleUpdateSubNote
 } = require("../controllers/subNote.controller");
+const { authenticateToken } = require("../middleware/authenticateToken");
 
 // GET and Create a SubNote via an ID of Note
 subNoteRouter
   .route("/:id")
-  .get(handleGetAllSubNotes)
-  .post(handleCreateSubNotes)
-  .delete(handleDeleteSubNote)
-  .put(handleUpdateSubNote);
+  .get(authenticateToken, handleGetAllSubNotes)
+  .post(authenticateToken, handleCreateSubNotes)
+  .delete(authenticateToken, handleDeleteSubNote)
+  .put(authenticateToken, handleUpdateSubNote);
 
 module.exports = { subNoteRouter };

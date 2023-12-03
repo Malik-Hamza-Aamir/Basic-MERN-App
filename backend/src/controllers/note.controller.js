@@ -6,12 +6,14 @@ const {
 } = require("../model/note.model");
 
 const handleGetAllNotes = async (req, res) => {
-  try {
-    const notes = await listAllNotes();
-    return res.status(200).json(notes);
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+  const userId = req.user.userId;
+  console.log("user id :", userId);
+  // try {
+  //   const notes = await listAllNotes();
+  //   return res.status(200).json(notes);
+  // } catch (error) {
+  //   return res.status(500).json(error.message);
+  // }
 };
 
 const handleCreateNote = async (req, res) => {

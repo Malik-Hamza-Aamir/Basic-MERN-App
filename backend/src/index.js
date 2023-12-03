@@ -14,6 +14,7 @@ const port = parseInt(process.env.PORT, 10);
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", userRouter);
 app.use("/note", noteRouter);

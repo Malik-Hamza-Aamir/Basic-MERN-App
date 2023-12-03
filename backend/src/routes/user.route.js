@@ -1,11 +1,23 @@
 const express = require("express");
 const userRouter = express.Router();
-const { handleGetAllUsers, handleCreateUser } = require("../controllers/user.controller");
+const {
+  handleCreateUser,
+  handleDeleteUser,
+  handleUpdateUser,
+  handleAuthentication,
+  handleUserInformation,
+  handleLogout,
+} = require("../controllers/user.controller");
+const { authenticateToken } = require("../middleware/authenticateToken");
 
-// Get and Create Users
-userRouter.route("/").get(handleGetAllUsers).post(handleCreateUser);
+userRouter.route("/signup").post(handleCreateUser);
+userRouter.route("/login").post(handleAuthentication);
+userRouter.route("/logout").post(authenticateToken, handleLogout);
 
-// Delete and Get by id
-// noteRouter.route("/:id").get(handleGetSingleNote).delete(handleDeleteNote);
+userRouter
+  .route("/")
+  .get(authenticateToken, handleUserInformation)
+  .delete(authenticateToken, handleDeleteUser)
+  .put(authenticateToken, handleUpdateUser);
 
 module.exports = { userRouter };
